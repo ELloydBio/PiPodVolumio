@@ -1,8 +1,11 @@
 """
+The following file was originally created by:
 Adafruit PiTFT Installer Script
 (C) Adafruit Industries, Creative Commons 3.0 - Attribution Share Alike
 
 Written in Python by Melissa LeBlanc-Williams for Adafruit Industries
+
+This script is repurpused and modified under the Creative Commons license as part of the install process for the VolumioPiPod project by Erica Lloyd
 """
 
 import time
@@ -270,7 +273,7 @@ REMOVE_KERNEL_PINNING = False
 pitft_config = None
 pitftrot = None
 auto_reboot = None
-wayland = False
+ = False
 is_bullseye = False
 
 def warn_exit(message):
@@ -737,6 +740,11 @@ Settings take effect on next boot.
     shell.exit()
 
 def disable_wayland(disable):
+### The following code is included with the original script and may be of use to you.
+### For installations on volumio, wayland is diabled by default and not accessible via raspi-config.
+### Because the main script breaks without this function, but this function causes an error which ends the install on  Volumio OS it is disabled
+### If the script doesn't work for you for other application, you can uncomment it
+	"""
     if is_bullseye:
         return
     if disable:
@@ -747,6 +755,8 @@ def disable_wayland(disable):
         print("Using Wayland instead of X11")
         if not shell.run_command("sudo raspi-config nonint do_wayland 1"):
             shell.bail("Unable to enable Wayland")
+"""
+	return
 
 ####################################################### MAIN
 target_homedir = "/home/pi"
@@ -941,7 +951,7 @@ restart the script and choose a different orientation.""".format(rotation=pitftr
 
             if shell.exists("/etc/lightdm"):
                 shell.info("Updating Desktop Touch calibration...")
-                if not update_xorg(tinydrm_install=wayland):
+                if not update_xorg(tinydrm_install=):
                     shell.bail("Unable to update calibration")
         else:
             if not uninstall_fbcp():
