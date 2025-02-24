@@ -8,3 +8,6 @@ This code operates on top of the Volumio Operating System as installed from the 
 
 ## Attribution
 This project utilizes Code from the Adafruit Project. [adafruit-pitft.py](https://github.com/adafruit/Raspberry-Pi-Installer-Script) contains substantial original code by Melissa LeBlanc-Williams for Adafruit Industries. 
+
+## Notice project intent change
+As of now, I no longer intend to run this project on VolumioOS as it has caused many compatability issues with a number of RasPi tools. I will leave this script up for posterity as it does successfully configure an Adafruit PiTFT screen to operate within the Volumio operating system.
