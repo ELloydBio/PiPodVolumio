@@ -273,7 +273,7 @@ REMOVE_KERNEL_PINNING = False
 pitft_config = None
 pitftrot = None
 auto_reboot = None
- = False
+# = False
 is_bullseye = False
 
 def warn_exit(message):
@@ -951,7 +951,7 @@ restart the script and choose a different orientation.""".format(rotation=pitftr
 
             if shell.exists("/etc/lightdm"):
                 shell.info("Updating Desktop Touch calibration...")
-                if not update_xorg(tinydrm_install=):
+                if not update_xorg(tinydrm_install):
                     shell.bail("Unable to update calibration")
         else:
             if not uninstall_fbcp():
