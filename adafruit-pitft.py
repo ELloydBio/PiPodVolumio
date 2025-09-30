@@ -325,8 +325,8 @@ def softwareinstall():
             if not shell.run_command("apt-get install -y libts-dev"):
                 warn_exit("Apt failed to install TSLIB!")
     if not shell.run_command("apt-get install -y bc fbi git python3-dev python3-pip python3-smbus python3-spidev evtest libts-bin device-tree-compiler libgpiod build-essential python3-evdev"):
-        #removed libraspberrypi-dev from package list in favor of libgpiod
 		warn_exit("Apt failed to install software!")
+		#removed libraspberrypi-dev from package list in favor of libgpiod
     return True
 
 def uninstall_bootconfigtxt():
