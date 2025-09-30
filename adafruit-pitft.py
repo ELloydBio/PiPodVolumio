@@ -324,8 +324,10 @@ def softwareinstall():
         if not shell.run_command("apt-get install -y tslib"):
             if not shell.run_command("apt-get install -y libts-dev"):
                 warn_exit("Apt failed to install TSLIB!")
-    if not shell.run_command("apt-get install -y bc fbi git python3-dev python3-pip python3-smbus python3-spidev evtest libts-bin device-tree-compiler libgpiod build-essential python3-evdev"):
-        warn_exit("Apt failed to install software!")
+    if not shell.run_command("apt-get install -y bc fbi git python3-dev python3-pip python3-smbus evtest libts-bin device-tree-compiler python3-libgpiod build-essential python3-evdev"):
+        answer = input("Apt failed to install dependencies, please review required software to make ensure compatibility. Proceed manually")
+        if not answer.lower == "yes" or answer.lower = "y" 
+            warn_exit("Apt failed to install software!")
 	     #removed libraspberrypi-dev from package list in favor of libgpiod
     return True
 
