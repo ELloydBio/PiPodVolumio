@@ -11,36 +11,41 @@
 #include <dt-bindings/interrupt-controller/irq.h>
 
 / {
-	metadata {
-		title = "Enable 2.2in FB display on SPI0";
-		compatible = "radxa,rock-2a";
-		category = "display";
-		exclusive = "GPIO3_B2", "GPIO3_C1";
-		description = "Enable 2.2in FB display on SPI0 over CS1";
-	};
+    metadata {
+        title = "Enable 2.2in FB display on SPI0";
+        compatible = "radxa,rock-2a";
+        category = "display";
+        exclusive = "GPIO3_B2", "GPIO3_C1";
+        description = "Enable 2.2in FB display on SPI0 over CS1";
+    };
 };
 
-
 &spi0 {
-	status = "okay";
-	#address-cells = <1>;
-	#size-cells = <0>;
-	pinctrl-names = "default", "high_speed";
-	pinctrl-0 = <&spi0m1_cs0 &spi0m1_pins>;
-	pinctrl-1 = <&spi0m1_cs1 &spi0m1_pins_hs>;
+    status = "okay";
+    #address-cells = <1>;
+    #size-cells = <0>;
+    pinctrl-names = "default", "high_speed";
+    pinctrl-0 = <&spi0m1_cs0 &spi0m1_pins>;
+    pinctrl-1 = <&spi0m1_cs1 &spi0m1_pins_hs>;
 
-	ili9340: ili9340@0 {
-		compatible = "ilitek,ili9340";
-		reg = <0>;
-		spi-max-frequency = <16000000>;
-		txbuflen = <32768>;
-		rotate = <90>;
-		bgr = <0>;
-		fps = <30>;
-		buswidth = <8>;
-		regwidth = <16>;
-		reset-gpios = <&gpio3 RK_PC1 GPIO_ACTIVE_LOW>;
-		dc-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_HIGH>;
-		debug = <0>;
-	};
+    // The display node MUST be configured for CS1 (reg = <1>)
+    ili9340: ili9340@1 {
+        compatible = "ilitek,ili9340";
+        reg = <1>; // FIX: Use CS1 to match the description
+
+        // Add pinctrl selection to use the high-speed CS1 configuration
+        pinctrl-names = "default";
+        pinctrl-0 = <&spi0m1_cs1 &spi0m1_pins_hs>;
+
+        spi-max-frequency = <16000000>;
+        // txbuflen = <32768>; // Optional, can be removed
+        rotate = <90>;
+        // bgr = <0>; // Optional, can be removed (since RGB is assumed)
+        fps = <30>;
+        buswidth = <8>;
+        // regwidth = <16>; // Optional, can be removed
+        reset-gpios = <&gpio3 RK_PC1 GPIO_ACTIVE_LOW>;
+        dc-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_HIGH>;
+        debug = <0>;
+    };
 };
