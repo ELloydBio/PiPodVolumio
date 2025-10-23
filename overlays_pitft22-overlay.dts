@@ -13,20 +13,21 @@
 / {
 	metadata {
 		title = "Enable 2.2in FB display on SPI0";
-		compatible = "radxa,rock-2a,";
+		compatible = "radxa,rock-2a";
 		category = "display";
-		exclusive = "GPIO4_B2", "GPIO4_B3", "GPIO4_B4", "GPIO4_C1";
+		exclusive = "GPIO3_B2", "GPIO3_C1";
 		description = "Enable 2.2in FB display on SPI0 over CS1";
 	};
+};
 
 
-&spi3 {
+&spi0 {
 	status = "okay";
 	#address-cells = <1>;
 	#size-cells = <0>;
 	pinctrl-names = "default", "high_speed";
-	pinctrl-0 = <&spi3m1_cs0 &spi3m1_pins>;
-	pinctrl-1 = <&spi3m1_cs1 &spi3m1_pins_hs>;
+	pinctrl-0 = <&spi0m1_cs0 &spi0m1_pins>;
+	pinctrl-1 = <&spi0m1_cs1 &spi0m1_pins_hs>;
 
 	ili9340: ili9340@0 {
 		compatible = "ilitek,ili9340";
